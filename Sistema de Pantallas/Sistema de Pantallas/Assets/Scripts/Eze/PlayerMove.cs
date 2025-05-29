@@ -60,7 +60,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    void OollisionExit(Collision collision)
+    void OnCollisionExit(Collision collision)
     {
         _isGrounded = false;
     }
