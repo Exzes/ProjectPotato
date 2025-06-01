@@ -28,7 +28,8 @@ public class CatcherAI : MonoBehaviour
     [Header("Vision")]
     public float viewAngle = 45f;
     public float viewDistance = 10f;
-    public LayerMask playerMask;
+    //public LayerMask playerMask;
+
     public LayerMask obstacleMask;
     public Transform player;
 
