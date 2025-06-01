@@ -24751,8 +24751,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 66f0726e43c72a94aa9dc7aa4b6cbfe0, type: 3}
-<<<<<<< Updated upstream
-=======
 --- !u!1001 &2136233084
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24881,6 +24879,7 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.5
       objectReference: {fileID: 0}
+
     - target: {fileID: 990330253897316593, guid: 05800230ba38e84489a5be4bfb3e84a1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -33.13
@@ -24888,6 +24887,7 @@ PrefabInstance:
     - target: {fileID: 990330253897316593, guid: 05800230ba38e84489a5be4bfb3e84a1, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.54
+
       objectReference: {fileID: 0}
     - target: {fileID: 990330253897316593, guid: 05800230ba38e84489a5be4bfb3e84a1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -24921,10 +24921,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+
     - target: {fileID: 990330253897316593, guid: 05800230ba38e84489a5be4bfb3e84a1, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+
     - target: {fileID: 7787123618241272254, guid: 05800230ba38e84489a5be4bfb3e84a1, type: 3}
       propertyPath: m_Name
       value: Catcher
@@ -24940,7 +24942,7 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 655902024}
   m_SourcePrefab: {fileID: 100100000, guid: 05800230ba38e84489a5be4bfb3e84a1, type: 3}
->>>>>>> Stashed changes
+
 --- !u!1001 &1955224873050624476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25453,9 +25455,7 @@ SceneRoots:
   - {fileID: 820023043}
   - {fileID: 7597820839659993134}
   - {fileID: 1061336547}
-<<<<<<< Updated upstream
-=======
   - {fileID: 970496132739786928}
   - {fileID: 1693664886}
   - {fileID: 411311524}
->>>>>>> Stashed changes
+
