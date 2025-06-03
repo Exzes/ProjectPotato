@@ -9,6 +9,7 @@ public class CineMachineController : MonoBehaviour
     void Start()
     {
         _anim.Play("CamPlayer");
+        PlayManager.Instance.SetGamePlayState(false);
     }
     void Update()
     {
@@ -21,10 +22,25 @@ public class CineMachineController : MonoBehaviour
     public void CatcherView()
     {
         _anim.Play("CatcherView");
-        PlayManager.Instance.SetGamePlayState(false);
-        StartCoroutine(ReturnToPlayerCam(8f));
+        PlayManager.Instance.SetEventsState(false);
+        StartCoroutine(ViewFruit(6f));
+        
+    }
+    public void FlyingView()
+    {
+        _anim.Play("FlyingView");
+        PlayManager.Instance.SetEventsState(false);
+        StartCoroutine(ReturnToPlayerCam(6f));
+        
     }
 
+    IEnumerator ViewFruit(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        _anim.Play("FruitView");
+        PlayManager.Instance.SetEventsState(true);
+        StartCoroutine(ReturnToPlayerCam(4f));
+    }
     IEnumerator ReturnToPlayerCam(float delay)
     {
         yield return new WaitForSeconds(delay);
