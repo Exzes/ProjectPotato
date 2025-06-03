@@ -21,12 +21,14 @@ public class CineMachineController : MonoBehaviour
     public void CatcherView()
     {
         _anim.Play("CatcherView");
-        StartCoroutine(ReturnToPlayerCam(16f));
+        PlayManager.Instance.SetGamePlayState(false);
+        StartCoroutine(ReturnToPlayerCam(8f));
     }
 
     IEnumerator ReturnToPlayerCam(float delay)
     {
         yield return new WaitForSeconds(delay);
         _anim.Play("CamPlayer");
+        PlayManager.Instance.SetGamePlayState(true);
     }
 }
