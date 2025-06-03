@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -33,12 +34,18 @@ public class CatcherAI : MonoBehaviour
     public LayerMask obstacleMask;
     public Transform player;
 
+    private bool presentation = true;
+    private float originalWaitTime;
+
+
     void Start()
     {
         //tomamos el componente de agente y configuramos sus propiedades
         agent = GetComponent<NavMeshAgent>();
         agent.speed = patrolSpeed;
         agent.SetDestination(patrolPoints[currentPoint].position);
+        originalWaitTime = waitTime;
+        CatcherPresentation();
     }
 
     void Update()
@@ -112,5 +119,20 @@ public class CatcherAI : MonoBehaviour
             }
         }
         return false;
+    }
+    void CatcherPresentation()
+    {
+        if (presentation)
+        {
+            presentation = false;
+            waitTime = 8;
+        }
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("OffPresentation"))
+        {
+            waitTime = originalWaitTime;
+        }
     }
 }
