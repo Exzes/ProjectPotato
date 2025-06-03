@@ -24,7 +24,10 @@ public class PlayManager : MonoBehaviour
 
     public void SetGamePlayState(bool state)
     {
-        canPlayerMove = state;
+        canPlayerMove = state;  
+    }
+    public void SetEventsState(bool state)
+    {
         canEnemiesAtk = state;
     }
 }
