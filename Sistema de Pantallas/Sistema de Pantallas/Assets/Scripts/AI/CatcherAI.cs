@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,6 +8,8 @@ public class CatcherAI : MonoBehaviour
 {
     public enum State { Patrol, Chase }
     private State currentState = State.Patrol;
+
+    private Animator anim;
 
 
     //estados posibles para la AI del enemigo en su maquina de estados
@@ -28,20 +31,36 @@ public class CatcherAI : MonoBehaviour
     [Header("Vision")]
     public float viewAngle = 45f;
     public float viewDistance = 10f;
-    public LayerMask playerMask;
+    //public LayerMask playerMask;
+
     public LayerMask obstacleMask;
     public Transform player;
+
+    private bool presentation = true;
+    private float originalWaitTime;
+
 
     void Start()
     {
         //tomamos el componente de agente y configuramos sus propiedades
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
         agent.speed = patrolSpeed;
         agent.SetDestination(patrolPoints[currentPoint].position);
+        originalWaitTime = waitTime;
+        CatcherPresentation();
+        anim.SetBool("IsWalking", true);
     }
 
     void Update()
     {
+        if (!PlayManager.Instance.canEnemiesAtk)
+        {
+            anim.SetBool("IsRunning", false);
+            anim.SetBool("IsWalking", false);
+            return;
+        }
+        
         switch (currentState) //estado actual en el que se encuentra la AI del NPC
         {
             //en patrullaje
@@ -51,6 +70,8 @@ public class CatcherAI : MonoBehaviour
                 {
                     currentState = State.Chase;
                     agent.speed = chaseSpeed;
+                    anim.SetBool("IsRunning", true);
+                    anim.SetBool("IsWalking", true);
                 }
                 break;
 
@@ -71,6 +92,7 @@ public class CatcherAI : MonoBehaviour
                     {
                         currentState = State.Patrol;
                         agent.speed = patrolSpeed;
+                        anim.SetBool("IsRunning", false);
                         agent.SetDestination(patrolPoints[currentPoint].position);
                     }
                 }
@@ -88,6 +110,11 @@ public class CatcherAI : MonoBehaviour
                 currentPoint = (currentPoint + 1) % patrolPoints.Count;
                 agent.SetDestination(patrolPoints[currentPoint].position);
                 waitTimer = 0f;
+                anim.SetBool("IsWalking", true);
+            }
+            else
+            {
+                anim.SetBool("IsWalking", false);
             }
         }
     }
@@ -111,5 +138,20 @@ public class CatcherAI : MonoBehaviour
             }
         }
         return false;
+    }
+    void CatcherPresentation()
+    {
+        if (presentation)
+        {
+            presentation = false;
+            waitTime = 2;
+        }
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("OffPresentation"))
+        {
+            waitTime = originalWaitTime;
+        }
     }
 }

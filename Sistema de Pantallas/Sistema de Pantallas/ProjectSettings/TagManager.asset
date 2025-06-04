@@ -6,15 +6,18 @@ TagManager:
   tags:
   - Fruta
   - Enemigo
+  - HidingArea
+  - Catcher
+  - OffPresentation
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - HidingArea
   - Water
   - UI
-  - 
-  - 
+  - Obstacles
+  - EffectCam
   - 
   - 
   - 

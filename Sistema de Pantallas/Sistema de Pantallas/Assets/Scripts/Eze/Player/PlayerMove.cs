@@ -11,6 +11,7 @@ public class PlayerMove : MonoBehaviour
     float _gravity = -9.8f;
     bool _isGrounded;
     Vector3 _moveDirection;
+    Vector3 _stopMove;
 
     Animator m_anim;
 
@@ -31,6 +32,13 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        if (!PlayManager.Instance.canPlayerMove)
+        {
+            _moveDirection = _stopMove;
+            Animate(0);
+
+            return;
+        }    
         _posH = Input.GetAxis("Horizontal");
         _posV = Input.GetAxis("Vertical");
 
