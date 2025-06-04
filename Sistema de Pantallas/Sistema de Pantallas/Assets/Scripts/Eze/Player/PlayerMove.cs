@@ -8,8 +8,6 @@ public class PlayerMove : MonoBehaviour
     Transform _playerTransform;
     float _posH;
     float _posV;
-    float _gravity = -9.8f;
-    bool _isGrounded;
     Vector3 _moveDirection;
     Vector3 _stopMove;
 
@@ -25,7 +23,7 @@ public class PlayerMove : MonoBehaviour
         _playerTransform = transform;
 
         _rigidbody.freezeRotation = true;
-        _rigidbody.useGravity = false;
+
         
     }
 
@@ -35,24 +33,25 @@ public class PlayerMove : MonoBehaviour
         if (!PlayManager.Instance.canPlayerMove)
         {
             _moveDirection = _stopMove;
-            Animate(0);
+            Animate(0,0);
 
             return;
         }    
         _posH = Input.GetAxis("Horizontal");
         _posV = Input.GetAxis("Vertical");
 
-        _playerTransform.Rotate(0, _posH * _speedRot * Time.deltaTime, 0);
-
-        _moveDirection = _playerTransform.forward * _posV * _speedMov;
-        _moveDirection.y = _rigidbody.velocity.y;
-
-        if (!_isGrounded)
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            _moveDirection.y += _gravity * Time.deltaTime;
+            _speedMov = 8;
         }
 
-        Animate(_posV);
+        _moveDirection = _playerTransform.forward * (_posV * _speedMov);
+
+
+        _playerTransform.Rotate(0, _posH * _speedRot, 0);
+
+
+        Animate(_posV, _posH);
         
     }
     void FixedUpdate()
@@ -60,22 +59,9 @@ public class PlayerMove : MonoBehaviour
         _rigidbody.velocity = new Vector3(_moveDirection.x, _rigidbody.velocity.y, _moveDirection.z);
     }
 
-    void OnCollisionStay(Collision collision)
+    void Animate(float v, float h)
     {
-        if (collision.contacts[0].normal.y > 0.7f)
-        {
-            _isGrounded = true;
-        }
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        _isGrounded = false;
-    }
-
-    void Animate(float v)
-    {
-        bool walking = v != 0f;
+        bool walking = v != 0f || h != 0f;
 
         m_anim.SetBool("IsWalking", walking);
     }
