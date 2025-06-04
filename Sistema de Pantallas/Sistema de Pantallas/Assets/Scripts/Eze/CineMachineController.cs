@@ -45,6 +45,7 @@ public class CineMachineController : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         _anim.Play("CamPlayer");
+        yield return new WaitForSeconds(delay + 2f);
         PlayManager.Instance.SetGamePlayState(true);
     }
 }

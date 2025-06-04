@@ -26,29 +26,30 @@ public class AudioManager : MonoBehaviour
     }
     public void ManageGenVol(float vol)
     {
-        audioMixer.SetFloat("GeneralVol", Mathf.Log10(vol) * 20);
-        PlayerPrefs.SetFloat("VolGen", vol);
+        audioMixer.SetFloat("masterVol", Mathf.Log10(vol) * 20);
+        PlayerPrefs.SetFloat("VolMaster", vol);
         PlayerPrefs.Save();
         //Debug.Log(vol);
     }
     public void ManageMusicVol(float vol)
     {
-        audioMixer.SetFloat("MusicVol", Mathf.Log10(vol) * 20);
-        PlayerPrefs.SetFloat("VolMusic", vol);
+        audioMixer.SetFloat("bgmVol", Mathf.Log10(vol) * 20);
+        PlayerPrefs.SetFloat("VolBGM", vol);
         PlayerPrefs.Save();
     }
     public void ManageFXsVol(float vol)
     {
         
-        audioMixer.SetFloat("FXsVol", Mathf.Log10(vol) * 20);
-        PlayerPrefs.SetFloat("VolFXs", vol);
+            Debug.Log("FX Vol Changed: " + vol);
+        audioMixer.SetFloat("sfxVol", Mathf.Log10(vol) * 20);
+        PlayerPrefs.SetFloat("VolSFX", vol);
         PlayerPrefs.Save();
     }
 
     public void LoadVolumes()
     {
-        float genVol = PlayerPrefs.GetFloat("VolGen", 0.75f);
-        float musicVol = PlayerPrefs.GetFloat("VolMusic", 0.75f);
-        float fxVol = PlayerPrefs.GetFloat("VolFXs", 0.75f);
+        float masterVol = PlayerPrefs.GetFloat("VolMaster", 0.75f);
+        float bgmVol = PlayerPrefs.GetFloat("VolBGM", 0.75f);
+        float sfxVol = PlayerPrefs.GetFloat("VolSFX", 0.75f);
     }
 }
