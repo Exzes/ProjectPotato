@@ -144,7 +144,7 @@ public class CatcherAI : MonoBehaviour
         if (presentation)
         {
             presentation = false;
-            waitTime = 2;
+            waitTime = 0;
         }
     }
     void OnTriggerEnter(Collider other)

@@ -5,7 +5,7 @@ public class FlyerAI : MonoBehaviour
     [Header("Spawn, Movement, Detection")]
     public float detectionRadius = 10f;
     public float moveSpeed = 5f;
-    public float stoppingDistance = 1f;
+    public float stoppingDistance = 0.5f;
     public Transform startPoint;
 
     [Header("Vision")]

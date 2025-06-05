@@ -10,6 +10,8 @@ public class FruitScoreManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI fruitText;
 
+    private bool active = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -25,12 +27,14 @@ public class FruitScoreManager : MonoBehaviour
 
     private void Start()
     {
+        active = PlayManager.Instance.canPlayerMove;
         UpdateFruitUI();
     }
 
     public void AddFruitAmount(int amount)
     {
         currentFruitScore += amount;
+        active = true;
         UpdateFruitUI();
     }
 
@@ -48,7 +52,7 @@ public class FruitScoreManager : MonoBehaviour
 
     private void UpdateFruitUI()
     {
-        if (fruitText != null)
+        if (fruitText != null && active)
         {
             fruitText.text = "Frutas: " + currentFruitScore.ToString();
         }

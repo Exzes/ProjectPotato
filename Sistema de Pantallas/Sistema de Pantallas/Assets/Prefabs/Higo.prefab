@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 937633494976539391}
   - component: {fileID: 2159422499453688843}
   - component: {fileID: 7196401395561684006}
+  - component: {fileID: -1850496129402239878}
+  - component: {fileID: 3409095422833007526}
   m_Layer: 0
   m_Name: Higo
   m_TagString: Untagged
@@ -28,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 30, y: 30, z: 30}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 30.000002, y: 30.000002, z: 30.000002}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5219390789520658434}
   m_Father: {fileID: 0}
@@ -84,6 +86,41 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-1850496129402239878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290371829749367190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c02df3b31be80843b4e9a41f06b0bc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!136 &3409095422833007526
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290371829749367190}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.009442716
+  m_Height: 0.01671618
+  m_Direction: 1
+  m_Center: {x: 0.0000009685755, y: -0.0000025546176, z: 0.0007068873}
 --- !u!1 &5204634333551493713
 GameObject:
   m_ObjectHideFlags: 0
