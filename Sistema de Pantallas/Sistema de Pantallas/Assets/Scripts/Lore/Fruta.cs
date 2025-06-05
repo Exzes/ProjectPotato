@@ -23,6 +23,7 @@ public class Fruta : MonoBehaviour
         {
             Debug.Log("Fruta recogida");
             gameObject.SetActive(false);
+            GameStateManager.Instance.CollectFruit();
         }
     }
 }
