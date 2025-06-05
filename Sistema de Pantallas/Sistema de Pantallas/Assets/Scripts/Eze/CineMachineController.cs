@@ -2,14 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CineMachineController : MonoBehaviour
+public class CineMachineController : MonoBehaviour, IAnimationState
 {
     [SerializeField] Animator _anim;
 
+    void Awake()
+    {
+        PlayManager.Instance.SetGamePlayState(false);
+        PlayManager.Instance.SetEventsState(false);
+        PauseSceneAnimation();
+    }
     void Start()
     {
-        _anim.Play("CamPlayer");
-        PlayManager.Instance.SetGamePlayState(false);
+        _anim.Play("AerialCloseUp");
+        if (_anim.speed == 1)
+        {
+            _anim.Play("CamPlayer");
+        }
+        
+    }
+    public void StartSceneAnimation()
+    {
+        _anim.speed = 1f;
+    }
+    public void PauseSceneAnimation()
+    {
+        _anim.speed = 0f;
     }
     void Update()
     {
@@ -47,5 +65,6 @@ public class CineMachineController : MonoBehaviour
         _anim.Play("CamPlayer");
         yield return new WaitForSeconds(delay + 2f);
         PlayManager.Instance.SetGamePlayState(true);
+        PlayManager.Instance.SetEventsState(true);
     }
 }
