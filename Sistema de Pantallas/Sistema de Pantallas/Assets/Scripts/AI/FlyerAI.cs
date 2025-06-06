@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FlyerAI : MonoBehaviour
+public class FlyerAI : Enemy
 {
     [Header("Spawn, Movement, Detection")]
     public float detectionRadius = 10f;
