@@ -11,9 +11,6 @@ public class PlayerCam : MonoBehaviour
 
     [SerializeField] private float _speedRot;
 
-    float _stopRot = 0;
-    float _defaultRot;
-
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
