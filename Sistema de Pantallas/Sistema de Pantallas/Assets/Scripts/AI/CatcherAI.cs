@@ -36,6 +36,8 @@ public class CatcherAI : MonoBehaviour
     public LayerMask obstacleMask;
     public Transform player;
 
+    private PlayManager playManager;
+
     private bool presentation = true;
     private float originalWaitTime;
 
@@ -58,46 +60,53 @@ public class CatcherAI : MonoBehaviour
         {
             anim.SetBool("IsRunning", false);
             anim.SetBool("IsWalking", false);
+            agent.speed = 0;
             return;
+        }
+        else
+        {
+            agent.speed = patrolSpeed;
+            anim.SetBool("IsWalking", true);
+
         }
         
         switch (currentState) //estado actual en el que se encuentra la AI del NPC
-        {
-            //en patrullaje
-            case State.Patrol:
-                Patrol();
-                if (CanSeePlayer())
-                {
-                    currentState = State.Chase;
-                    agent.speed = chaseSpeed;
-                    anim.SetBool("IsRunning", true);
-                    anim.SetBool("IsWalking", true);
-                }
-                break;
-
-            //en persecuci�n
-            case State.Chase:
-                agent.SetDestination(player.position);
-
-                //si vemos al player entonces la ultima vez que lo vimos es ahora mismo
-                if (CanSeePlayer())
-                {
-                    timeSinceLastSeen = 0f;
-                }
-                else
-                {
-                    //en cambio si no lo vemos sumamos tiempo hasta que superamos el valor de cooldown de persecuci�n
-                    timeSinceLastSeen += Time.deltaTime;
-                    if (timeSinceLastSeen >= loseSightTime)
+            {
+                //en patrullaje
+                case State.Patrol:
+                    Patrol();
+                    if (CanSeePlayer())
                     {
-                        currentState = State.Patrol;
-                        agent.speed = patrolSpeed;
-                        anim.SetBool("IsRunning", false);
-                        agent.SetDestination(patrolPoints[currentPoint].position);
+                        currentState = State.Chase;
+                        agent.speed = chaseSpeed;
+                        anim.SetBool("IsRunning", true);
+                        anim.SetBool("IsWalking", true);
                     }
-                }
-                break;
-        }
+                    break;
+
+                //en persecuci�n
+                case State.Chase:
+                    agent.SetDestination(player.position);
+
+                    //si vemos al player entonces la ultima vez que lo vimos es ahora mismo
+                    if (CanSeePlayer())
+                    {
+                        timeSinceLastSeen = 0f;
+                    }
+                    else
+                    {
+                        //en cambio si no lo vemos sumamos tiempo hasta que superamos el valor de cooldown de persecuci�n
+                        timeSinceLastSeen += Time.deltaTime;
+                        if (timeSinceLastSeen >= loseSightTime)
+                        {
+                            currentState = State.Patrol;
+                            agent.speed = patrolSpeed;
+                            anim.SetBool("IsRunning", false);
+                            agent.SetDestination(patrolPoints[currentPoint].position);
+                        }
+                    }
+                    break;
+            }
     }
 
     void Patrol()

@@ -6,4 +6,5 @@ public interface IAnimationState
 {
     void StartSceneAnimation();
     void PauseSceneAnimation();
+    void Prueba();
 }
