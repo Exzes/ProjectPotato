@@ -36,8 +36,6 @@ public class CatcherAI : Enemy
     public LayerMask obstacleMask;
     public Transform player;
 
-    private PlayManager playManager;
-
     private bool presentation = true;
     private float originalWaitTime;
 
@@ -60,14 +58,7 @@ public class CatcherAI : Enemy
         {
             anim.SetBool("IsRunning", false);
             anim.SetBool("IsWalking", false);
-            agent.speed = 0;
             return;
-        }
-        else
-        {
-            agent.speed = patrolSpeed;
-            anim.SetBool("IsWalking", true);
-
         }
         
         switch (currentState) //estado actual en el que se encuentra la AI del NPC
@@ -120,6 +111,7 @@ public class CatcherAI : Enemy
                 agent.SetDestination(patrolPoints[currentPoint].position);
                 waitTimer = 0f;
                 anim.SetBool("IsWalking", true);
+                Debug.Log("Pasa");
             }
             else
             {
