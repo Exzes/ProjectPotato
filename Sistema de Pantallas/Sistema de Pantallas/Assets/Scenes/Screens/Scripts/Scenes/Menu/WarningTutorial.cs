@@ -26,7 +26,7 @@ public class WarningTutorial : MonoBehaviour
         {
             LoadScenes.ChangeSceneWhitLoader(5);
             var animController = FindObjectOfType<CineMachineController>();
-            animController?.StartSceneAnimation();
+            animController.FirstView();
             //SceneManager.LoadScene("GameLevelOne");
         }
     }

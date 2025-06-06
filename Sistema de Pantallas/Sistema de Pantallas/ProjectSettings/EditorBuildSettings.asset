@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Screens/Scenes/GameLevelOne.unity
     guid: bacdf4f48527de440a40dfe2e0605b92
+  - enabled: 1
+    path: Assets/Scenes/Screens/Scenes/PantallaDerrota.unity
+    guid: 8078f27e1f05710409b0cd9cd43c5a47
   m_configObjects: {}
