@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CatcherAI : MonoBehaviour
+public class CatcherAI : Enemy
 {
     public enum State { Patrol, Chase }
     private State currentState = State.Patrol;
