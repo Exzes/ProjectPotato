@@ -14,7 +14,6 @@ public class HideZoneEffect : MonoBehaviour
             if (hidingZoneCount == 1)
             {
                 cameraEffect.ApplySepia();
-                Debug.Log("Oculto");
             }
         }
     }

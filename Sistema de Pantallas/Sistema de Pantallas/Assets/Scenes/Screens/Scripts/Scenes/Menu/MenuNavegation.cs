@@ -11,9 +11,9 @@ namespace ProjectPotato.Menu
             Cursor.lockState = CursorLockMode.Confined;
         }
         public void ChangeScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName); 
-    }
+        {
+            SceneManager.LoadScene(sceneName); 
+        }
         
     }
 }

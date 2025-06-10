@@ -11,6 +11,8 @@ public class PlayerCam : MonoBehaviour
 
     [SerializeField] private float _speedRot;
 
+
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -27,8 +29,8 @@ public class PlayerCam : MonoBehaviour
         float _posH = Input.GetAxis("Horizontal");
         float _posV = Input.GetAxis("Vertical");
         Vector3 inputDir = orientation.forward * _posV + orientation.right * _posH;
-
-        if (inputDir != Vector3.zero)
+        
+        if (inputDir != Vector3.zero && PlayManager.Instance.canPlayerMove)
         {
             playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * _speedRot);
         }
