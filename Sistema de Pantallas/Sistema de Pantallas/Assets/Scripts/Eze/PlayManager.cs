@@ -9,6 +9,8 @@ public class PlayManager : MonoBehaviour
     public bool canPlayerMove = true;
     public bool canEnemiesAtk = true;
 
+    public bool canAnimationPlay = false;
+
     public bool CanEnemiesAtk => canEnemiesAtk;
     void Awake()
     {
@@ -31,5 +33,10 @@ public class PlayManager : MonoBehaviour
     public void SetEventsState(bool state)
     {
         canEnemiesAtk = state;
+    }
+
+    public void ActivateAnimation(bool state)
+    {
+        canAnimationPlay = state;
     }
 }

@@ -8,7 +8,6 @@ public class PlayerMove : MonoBehaviour
     Transform _playerTransform;
     float _posH;
     float _posV;
-
     float _mouseRot;
     Vector3 _moveDirection;
     Vector3 _stopMove;
@@ -35,9 +34,17 @@ public class PlayerMove : MonoBehaviour
         if (!PlayManager.Instance.canPlayerMove)
         {
             _moveDirection = _stopMove;
-            Animate(0);
+            m_anim.SetBool("Sleep", true);
 
             return;
+        }
+        if (!PlayManager.Instance.canAnimationPlay)
+        {
+            m_anim.SetBool("Sleep", true);
+        }
+        else
+        {
+            m_anim.SetBool("Sleep", false);
         }
         _posH = Input.GetAxis("Horizontal");
         _posV = Input.GetAxis("Vertical");
@@ -56,6 +63,7 @@ public class PlayerMove : MonoBehaviour
             //Animate(_posV);
             Debug.Log(_moveDirection);
         }
+        
         Animate(_posV);
         
     }

@@ -56,17 +56,24 @@ public class CineMachineController : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         _anim.Play("CamPlayer");
-        yield return new WaitForSeconds(delay + 2f);
-        PlayManager.Instance.SetEventsState(true);
         if (canMove)
         {
             PlayManager.Instance.SetGamePlayState(true);
         }
     }
 
+    IEnumerator FirstPlayerView(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        _anim.Play("FirstPlayerView");
+        PlayManager.Instance.ActivateAnimation(true);
+        yield return new WaitForSeconds(delay + 2f);
+        PlayManager.Instance.SetEventsState(true);
+    }
+
     public void FirstView()
     {
         PlayManager.Instance.SetGamePlayState(false);
-        StartCoroutine(ReturnToPlayerCam(1f));
+        StartCoroutine(FirstPlayerView(1f));
     }
 }
