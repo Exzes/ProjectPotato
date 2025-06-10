@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour
     Transform _playerTransform;
     float _posH;
     float _posV;
+    float _mouseRot;
     Vector3 _moveDirection;
     Vector3 _stopMove;
 
@@ -33,12 +34,21 @@ public class PlayerMove : MonoBehaviour
         if (!PlayManager.Instance.canPlayerMove)
         {
             _moveDirection = _stopMove;
-            Animate(0,0);
+            m_anim.SetBool("Sleep", true);
 
             return;
-        }    
+        }
+        if (!PlayManager.Instance.canAnimationPlay)
+        {
+            m_anim.SetBool("Sleep", true);
+        }
+        else
+        {
+            m_anim.SetBool("Sleep", false);
+        }
         _posH = Input.GetAxis("Horizontal");
         _posV = Input.GetAxis("Vertical");
+        _mouseRot = Input.GetAxis("Mouse X");
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -47,11 +57,14 @@ public class PlayerMove : MonoBehaviour
 
         _moveDirection = _playerTransform.forward * (_posV * _speedMov);
 
-
-        _playerTransform.Rotate(0, _posH * _speedRot, 0);
-
-
-        Animate(_posV, _posH);
+        if (_moveDirection != Vector3.zero)
+        {
+            _playerTransform.Rotate(0, _mouseRot * _speedRot, 0);
+            //Animate(_posV);
+            Debug.Log(_moveDirection);
+        }
+        
+        Animate(_posV);
         
     }
     void FixedUpdate()
@@ -59,9 +72,9 @@ public class PlayerMove : MonoBehaviour
         _rigidbody.velocity = new Vector3(_moveDirection.x, _rigidbody.velocity.y, _moveDirection.z);
     }
 
-    void Animate(float v, float h)
+    void Animate(float v)
     {
-        bool walking = v != 0f || h != 0f;
+        bool walking = v != 0f;
 
         m_anim.SetBool("IsWalking", walking);
     }

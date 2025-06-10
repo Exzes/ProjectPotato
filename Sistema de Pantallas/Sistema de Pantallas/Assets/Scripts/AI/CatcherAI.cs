@@ -20,6 +20,8 @@ public class CatcherAI : Enemy
     [Header("Chasing")]
     public float chaseSpeed = 5f;
     public float patrolSpeed = 2f;
+
+    public float actualSpeed;
     public float loseSightTime = 3f;
 
     private int currentPoint = 0;
@@ -46,6 +48,7 @@ public class CatcherAI : Enemy
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         agent.speed = patrolSpeed;
+        actualSpeed = patrolSpeed;
         agent.SetDestination(patrolPoints[currentPoint].position);
         originalWaitTime = waitTime;
         CatcherPresentation();
@@ -58,9 +61,18 @@ public class CatcherAI : Enemy
         {
             anim.SetBool("IsRunning", false);
             anim.SetBool("IsWalking", false);
+            agent.speed = 0;
             return;
         }
-        
+        else
+        {
+            agent.speed = actualSpeed;
+            anim.SetBool("IsWalking", true);
+            if (CanSeePlayer())
+            {
+                anim.SetBool("IsRunning", true);
+            }
+        }
         switch (currentState) //estado actual en el que se encuentra la AI del NPC
             {
                 //en patrullaje
@@ -70,6 +82,7 @@ public class CatcherAI : Enemy
                     {
                         currentState = State.Chase;
                         agent.speed = chaseSpeed;
+                        actualSpeed = chaseSpeed;
                         anim.SetBool("IsRunning", true);
                         anim.SetBool("IsWalking", true);
                     }
@@ -92,6 +105,7 @@ public class CatcherAI : Enemy
                         {
                             currentState = State.Patrol;
                             agent.speed = patrolSpeed;
+                            actualSpeed = patrolSpeed;
                             anim.SetBool("IsRunning", false);
                             agent.SetDestination(patrolPoints[currentPoint].position);
                         }
@@ -111,7 +125,6 @@ public class CatcherAI : Enemy
                 agent.SetDestination(patrolPoints[currentPoint].position);
                 waitTimer = 0f;
                 anim.SetBool("IsWalking", true);
-                Debug.Log("Pasa");
             }
             else
             {
