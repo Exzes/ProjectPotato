@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
-public class FlyerAI : MonoBehaviour
+public class FlyerAI : Enemy
 {
     [Header("Spawn, Movement, Detection")]
     public float detectionRadius = 10f;
     public float moveSpeed = 5f;
-    public float stoppingDistance = 1f;
+    public float stoppingDistance = 0.5f;
     public Transform startPoint;
 
     [Header("Vision")]
@@ -13,6 +13,7 @@ public class FlyerAI : MonoBehaviour
     public float viewDistance = 10f;
     public LayerMask obstacleMask;
     public Transform player;
+    private Animator _anim;
 
     private enum State
     {
@@ -24,10 +25,18 @@ public class FlyerAI : MonoBehaviour
 
     void Start()
     {
+        _anim = GetComponent<Animator>();
     }
 
     void Update()
     {
+        // if (!PlayManager.Instance.canEnemiesAtk)
+        // {
+        //     _anim.SetBool("PlayerDetected", false);
+        //     _anim.SetBool("Persecution", false);
+        //     return;
+        // }
+
         switch (currentState) //estado actual en el que nos encontramos
         {
             case State.Idle:
@@ -48,6 +57,12 @@ public class FlyerAI : MonoBehaviour
         {
             MoveTowards(startPoint.position); //para movernos al punto de spawn del enemigo
         }
+        else
+        {
+            _anim.SetBool("PlayerDetected", false);
+            _anim.SetBool("Persecution", false);
+            _anim.SetBool("OnSpot", true);
+        }
     }
 
     void HandleChasing()
@@ -55,6 +70,7 @@ public class FlyerAI : MonoBehaviour
         if (player != null)
         {
             MoveTowards(player.position); //seguir la player
+            _anim.SetBool("Persecution", true);
         }
     }
 
@@ -63,6 +79,8 @@ public class FlyerAI : MonoBehaviour
         if (PlayerInSight())
         {
             currentState = State.Chasing;
+            _anim.SetBool("PlayerDetected", true);
+            _anim.SetBool("OnSpot", false);
         }
         else
         {
@@ -74,7 +92,7 @@ public class FlyerAI : MonoBehaviour
     {
         {
             Vector3 directionToPlayer = (player.position - transform.position).normalized; //normalizamos la direccion al player
-            float distanceToPlayer = Vector3.Distance(transform.position, player.position); 
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
             //si podemos ver en el cono que estamos proyectando
             //y la distancia al jugador esta dentro de nuestra distancia de vision
             //y la proyeccion que estamos realizando no esta obstruida por un obstaculo

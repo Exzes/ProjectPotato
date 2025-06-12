@@ -6,6 +6,7 @@ using UnityEngine;
 public class CatcherPresentation : MonoBehaviour
 {
     [SerializeField] CineMachineController ShotChange;
+    PlayManager playManager;
     bool notFirstTime;
     void OnTriggerEnter(Collider other)
     {

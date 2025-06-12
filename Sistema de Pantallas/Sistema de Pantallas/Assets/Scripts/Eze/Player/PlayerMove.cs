@@ -8,8 +8,7 @@ public class PlayerMove : MonoBehaviour
     Transform _playerTransform;
     float _posH;
     float _posV;
-    float _gravity = -9.8f;
-    bool _isGrounded;
+    float _mouseRot;
     Vector3 _moveDirection;
     Vector3 _stopMove;
 
@@ -25,7 +24,7 @@ public class PlayerMove : MonoBehaviour
         _playerTransform = transform;
 
         _rigidbody.freezeRotation = true;
-        _rigidbody.useGravity = false;
+
         
     }
 
@@ -35,42 +34,42 @@ public class PlayerMove : MonoBehaviour
         if (!PlayManager.Instance.canPlayerMove)
         {
             _moveDirection = _stopMove;
-            Animate(0);
+            m_anim.SetBool("Sleep", true);
 
             return;
-        }    
+        }
+        if (!PlayManager.Instance.canAnimationPlay)
+        {
+            m_anim.SetBool("Sleep", true);
+        }
+        else
+        {
+            m_anim.SetBool("Sleep", false);
+        }
         _posH = Input.GetAxis("Horizontal");
         _posV = Input.GetAxis("Vertical");
+        _mouseRot = Input.GetAxis("Mouse X");
 
-        _playerTransform.Rotate(0, _posH * _speedRot * Time.deltaTime, 0);
-
-        _moveDirection = _playerTransform.forward * _posV * _speedMov;
-        _moveDirection.y = _rigidbody.velocity.y;
-
-        if (!_isGrounded)
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            _moveDirection.y += _gravity * Time.deltaTime;
+            _speedMov = 8;
         }
 
+        _moveDirection = _playerTransform.forward * (_posV * _speedMov);
+
+        if (_moveDirection != Vector3.zero)
+        {
+            _playerTransform.Rotate(0, _mouseRot * _speedRot, 0);
+            //Animate(_posV);
+            Debug.Log(_moveDirection);
+        }
+        
         Animate(_posV);
         
     }
     void FixedUpdate()
     {
         _rigidbody.velocity = new Vector3(_moveDirection.x, _rigidbody.velocity.y, _moveDirection.z);
-    }
-
-    void OnCollisionStay(Collision collision)
-    {
-        if (collision.contacts[0].normal.y > 0.7f)
-        {
-            _isGrounded = true;
-        }
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        _isGrounded = false;
     }
 
     void Animate(float v)
