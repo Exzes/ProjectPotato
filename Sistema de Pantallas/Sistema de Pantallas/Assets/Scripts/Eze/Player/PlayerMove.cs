@@ -13,6 +13,8 @@ public class SimpleThirdPersonMove : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        m_anim = GetComponent<Animator>();
+
     }
 
     void Update()
