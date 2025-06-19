@@ -59,6 +59,7 @@ public class CineMachineController : MonoBehaviour
         if (canMove)
         {
             PlayManager.Instance.SetGamePlayState(true);
+            PlayManager.Instance.SetEventsState(true);
         }
     }
 
