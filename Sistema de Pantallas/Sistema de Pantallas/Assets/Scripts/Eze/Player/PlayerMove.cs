@@ -17,7 +17,7 @@ public class SimpleThirdPersonMove : MonoBehaviour
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
         float _posH = Input.GetAxisRaw("Horizontal");
         float _posV = Input.GetAxisRaw("Vertical");
